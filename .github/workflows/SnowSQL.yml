@@ -1,0 +1,24 @@
+name: SnowSQL
+env:
+  SNOWSQL_DEST: ~/snowflake
+  SNOWSQL_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT_DEV }}
+  SNOWSQL_USER: ${{ secrets.SNOWFLAKE_USERNAME_DEV }}
+  SNOWSQL_ROLE: ${{ secrets.SNOWFLAKE_ROLE_DEV }}
+  SNOWSQL_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE_DEV }}
+  SNOWSQL_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE_DEV }}
+  SNOWSQL_PWD: ${{ secrets.SNOWFLAKE_PASSWORD_DEV }}
+  
+on: push                                                  
+jobs:                         
+  executequery:                           
+    name: Install SnowSQL                          
+    runs-on: ubuntu-latest                           
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Download SnowSQL
+      run:  curl -O https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.2/linux_x86_64/snowsql-1.2.9-linux_x86_64.bash
+    - name: Install SnowSQL
+      run: SNOWSQL_DEST=~/snowflake SNOWSQL_LOGIN_SHELL=~/.profile bash snowsql-1.2.9-linux_x86_64.bash
+    - name: Test installation
+      run:  ~/snowflake/snowsql -v
