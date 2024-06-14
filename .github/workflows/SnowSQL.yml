@@ -22,3 +22,5 @@ jobs:
       run: SNOWSQL_DEST=~/snowflake SNOWSQL_LOGIN_SHELL=~/.profile bash snowsql-1.2.9-linux_x86_64.bash
     - name: Test installation
       run:  ~/snowflake/snowsql -v
+    - name: Execute Query
+      run: ~/snowflake/snowsql -q 'select current_user(); select current_role()' 
