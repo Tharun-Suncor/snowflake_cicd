@@ -1,5 +1,4 @@
 import snowflake.snowpark as snowpark
-from snowflake.snowpark.functions import col
 from snowflake.snowpark.functions import *
 from snowflake.snowpark.types import StringType, BinaryType, TimestampType
 import datetime
